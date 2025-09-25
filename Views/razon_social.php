@@ -173,41 +173,6 @@ $current_page = "razon_social";
                         </div>
                     </div>
 
-                    <!-- Datos Fiscales -->
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <h6 class="border-bottom pb-2 mb-3">Datos Fiscales</h6>
-                        </div>
-                        
-                        <div class="col-md-6 mb-3">
-                            <label for="condicionIva" class="form-label">Condición frente al IVA <span class="text-danger">*</span></label>
-                            <select class="form-select" id="condicionIva" required>
-                                <option value="">Seleccionar condición</option>
-                                <option value="responsableInscripto">Responsable Inscripto</option>
-                                <option value="monotributista">Monotributista</option>
-                                <option value="exento">Exento</option>
-                                <option value="noResponsable">No Responsable</option>
-                                <option value="consumidorFinal">Consumidor Final</option>
-                            </select>
-                            <div class="invalid-feedback">Por favor selecciona la condición frente al IVA.</div>
-                        </div>
-                        
-                        <div class="col-md-6 mb-3">
-                            <label for="ingresosBrutos" class="form-label">N° Ingresos Brutos</label>
-                            <input type="text" class="form-control" id="ingresosBrutos" placeholder="Número de inscripción">
-                        </div>
-                        
-                        <div class="col-md-6 mb-3">
-                            <label for="actividadPrincipal" class="form-label">Actividad Principal</label>
-                            <input type="text" class="form-control" id="actividadPrincipal" placeholder="Descripción de la actividad">
-                        </div>
-                        
-                        <div class="col-md-6 mb-3">
-                            <label for="nroInscripcion" class="form-label">N° Inscripción (IGJ)</label>
-                            <input type="text" class="form-control" id="nroInscripcion" placeholder="Para personas jurídicas">
-                        </div>
-                    </div>
-
                     <!-- Observaciones -->
                     <div class="row mb-4">
                         <div class="col-12">
