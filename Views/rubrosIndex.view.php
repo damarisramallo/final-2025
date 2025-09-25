@@ -39,7 +39,7 @@ $current_page = "rubros";
     <div class="dashboard-content">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4><i class="bi bi-tags me-2"></i>Lista de Rubros</h4>
-            <a href="rubro.php" class="btn btn-sm btn-primary">
+            <a href="rubrosAltaController.php" class="btn btn-sm btn-primary">
                 <i class="bi bi-plus-circle"></i> Nuevo Rubro
             </a>
         </div>

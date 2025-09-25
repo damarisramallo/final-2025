@@ -23,7 +23,7 @@ $current_page = "razon_social";
                 <button class="btn btn-sm btn-outline-secondary me-2">
                     <i class="bi bi-download"></i> Exportar
                 </button>
-                <a href="razon_social_lista.php" class="btn btn-sm btn-outline-primary me-2">
+                <a href="titularesIndexController.php" class="btn btn-sm btn-outline-primary me-2">
                     <i class="bi bi-list-ul"></i> Ver Lista
                 </a>
                 <button class="btn btn-sm btn-primary" onclick="resetForm()">

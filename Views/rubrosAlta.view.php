@@ -106,7 +106,7 @@ $current_page = "rubros";
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4><i class="bi bi-tags me-2"></i>Gestión de Rubros</h4>
             <div>
-                <a href="rubro_lista.php" class="btn btn-sm btn-outline-primary me-2">
+                <a href="rubrosIndexController.php" class="btn btn-sm btn-outline-primary me-2">
                     <i class="bi bi-list-ul"></i> Ver Lista
                 </a>
                 <button class="btn btn-sm btn-primary" onclick="resetForm()">
