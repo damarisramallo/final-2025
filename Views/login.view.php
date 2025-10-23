@@ -199,7 +199,7 @@
             }
             
             // Simulación de inicio de sesión exitoso
-            alert('Inicio de sesión exitoso. Redirigiendo...');
+            // alert('Inicio de sesión exitoso. Redirigiendo...');
             // Aquí normalmente redirigirías al usuario o enviarías los datos al servidor
         });
     </script>
