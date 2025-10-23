@@ -114,12 +114,12 @@
         </div>
         
         <div class="login-form">
-            <form id="loginForm">
+            <form id="loginForm" method="POST">
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                        <input type="email" class="form-control" id="email" placeholder="usuario@ejemplo.com" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="usuario@ejemplo.com" required>
                     </div>
                 </div>
                 
@@ -127,7 +127,7 @@
                     <label for="password" class="form-label">Contraseña</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                        <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" required>
                         <span class="password-toggle" id="togglePassword">
                             <i class="bi bi-eye"></i>
                         </span>
@@ -188,7 +188,7 @@
         
         // Validación básica del formulario
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+            //e.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -198,9 +198,10 @@
                 return;
             }
             
-            // Simulación de inicio de sesión exitoso
-            // alert('Inicio de sesión exitoso. Redirigiendo...');
-            // Aquí normalmente redirigirías al usuario o enviarías los datos al servidor
+            
+            //alert('Inicio de sesión exitoso. Redirigiendo...');
+            
+            this.submit();
         });
     </script>
 </body>

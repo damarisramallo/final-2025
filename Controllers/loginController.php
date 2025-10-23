@@ -4,8 +4,10 @@ require_once __DIR__ . '/../Models/Usuario.php';
 
 session_start();
 
+
 if(isset($_SESSION['email'])) {
-    header('Location: ./index.php');
+    header('Location: ./loginController.php');
+    exit();
 } else {
     if (isset($_POST['email']) && isset($_POST['password'])) {
         $email = $_POST['email'];
@@ -14,7 +16,8 @@ if(isset($_SESSION['email'])) {
         if($usuario){
             $_SESSION['email'] = $usuario;
             $_SESSION['info'] = 'Login correcto';
-            header('Location: ./publicIndexController.php');
+            header('Location: ./dashboardIndexController.php');
+            exit();
         } else {
             $_SESSION['info'] = 'Usuario o contraseña incorrectos';
         }
