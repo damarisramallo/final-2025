@@ -39,28 +39,28 @@ $current_page = "index";
             <div class="col-md-3">
                 <div class="card stat-card">
                     <i class="bi bi-people"></i>
-                    <h2>1,254</h2>
+                    <!-- <h2>1,254</h2> -->
                     <p>Usuarios Activos</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card stat-card">
                     <i class="bi bi-shop"></i>
-                    <h2>568</h2>
+                    <!-- <h2>568</h2> -->
                     <p>Comercios</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card stat-card">
                     <i class="bi bi-currency-dollar"></i>
-                    <h2>$24.7k</h2>
+                    <!-- <h2>$24.7k</h2> -->
                     <p>Ingresos Mensuales</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card stat-card">
                     <i class="bi bi-cart-check"></i>
-                    <h2>12,487</h2>
+                    <!-- <h2>12,487</h2> -->
                     <p>Transacciones</p>
                 </div>
             </div>
@@ -85,7 +85,7 @@ $current_page = "index";
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>María González</td>
                                         <td>Actualización de perfil</td>
                                         <td>10 Jun 2023</td>
@@ -114,7 +114,7 @@ $current_page = "index";
                                         <td>Cambio de rubro</td>
                                         <td>06 Jun 2023</td>
                                         <td><span class="badge bg-success">Completado</span></td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
@@ -128,7 +128,7 @@ $current_page = "index";
                         <h5 class="card-title mb-0">Distribución por Rubros</h5>
                     </div>
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
+                        <!-- <div class="d-flex justify-content-between align-items-center mb-2">
                             <span>Restaurantes</span>
                             <span class="fw-bold">35%</span>
                         </div>
@@ -166,7 +166,7 @@ $current_page = "index";
                         </div>
                         <div class="progress mb-3" style="height: 8px;">
                             <div class="progress-bar" role="progressbar" style="width: 5%;" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

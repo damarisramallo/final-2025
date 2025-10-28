@@ -42,6 +42,7 @@ $current_page = "razon_social";
             </div>
             <div class="card-body">
                 <form id="razonSocialForm" novalidate>
+                
                     <!-- Datos Básicos -->
                     <div class="row mb-4">
                         <div class="col-12">
@@ -50,7 +51,7 @@ $current_page = "razon_social";
                         
                         <div class="col-md-6 mb-3">
                             <label for="tipoPersona" class="form-label">Tipo de Persona <span class="text-danger">*</span></label>
-                            <select class="form-select" id="tipoPersona" required>
+                            <select class="form-select" id="tipoPersona" name="tipoPersona" required>
                                 <option value="">Seleccionar tipo</option>
                                 <option value="fisica">Persona Física</option>
                                 <option value="juridica">Persona Jurídica</option>
@@ -60,20 +61,25 @@ $current_page = "razon_social";
                         
                         <div class="col-md-6 mb-3">
                             <label for="razonSocial" class="form-label">Razón Social / Nombre <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="razonSocial" placeholder="Ej: Empresa S.A. o Juan Pérez" required>
+                            <input type="text" class="form-control" id="razonSocial" name="razonSocial" placeholder="Ej: Empresa S.A. o Juan Pérez" required>
                             <div class="invalid-feedback">Por favor ingresa la razón social o nombre.</div>
                         </div>
                         
                         <div class="col-md-6 mb-3">
                             <label for="cuitCuil" class="form-label">CUIT/CUIL <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="cuitCuil" placeholder="XX-XXXXXXXX-X" maxlength="13" required>
+                            <input type="text" class="form-control" id="cuitCuil" name="cuitCuil" placeholder="XX-XXXXXXXX-X" maxlength="13" required>
                             <div class="invalid-feedback">Por favor ingresa un CUIT/CUIL válido.</div>
                             <div class="form-text">Formato: XX-XXXXXXXX-X</div>
                         </div>
                         
                         <div class="col-md-6 mb-3">
                             <label for="fechaInicioActividades" class="form-label">Fecha Inicio de Actividades</label>
-                            <input type="date" class="form-control" id="fechaInicioActividades">
+                            <input type="date" class="form-control" id="fechaInicioActividades" name="fechaInicioActividades">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="condicionIva" class="form-label">Condición IVA</label>
+                            <input type="text" class="form-control" id="condicionIva" name="condicionIva" placeholder="Ej: Responsable Inscripto" required>
                         </div>
                     </div>
 
@@ -85,24 +91,24 @@ $current_page = "razon_social";
                         
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" placeholder="contacto@empresa.com" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="contacto@empresa.com" required>
                             <div class="invalid-feedback">Por favor ingresa un email válido.</div>
                         </div>
                         
                         <div class="col-md-6 mb-3">
                             <label for="telefono" class="form-label">Teléfono <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control" id="telefono" placeholder="+54 11 1234-5678" required>
+                            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="+54 11 1234-5678" required>
                             <div class="invalid-feedback">Por favor ingresa un teléfono válido.</div>
                         </div>
                         
                         <div class="col-md-6 mb-3">
                             <label for="celular" class="form-label">Celular</label>
-                            <input type="tel" class="form-control" id="celular" placeholder="+54 9 11 1234-5678">
+                            <input type="tel" class="form-control" id="celular" name="celular" placeholder="+54 9 11 1234-5678">
                         </div>
                         
                         <div class="col-md-6 mb-3">
                             <label for="paginaWeb" class="form-label">Página Web</label>
-                            <input type="url" class="form-control" id="paginaWeb" placeholder="https://www.empresa.com">
+                            <input type="url" class="form-control" id="paginaWeb" name="paginaWeb" placeholder="https://www.empresa.com">
                         </div>
                     </div>
 
@@ -114,30 +120,30 @@ $current_page = "razon_social";
                         
                         <div class="col-md-6 mb-3">
                             <label for="calle" class="form-label">Calle <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="calle" placeholder="Av. Corrientes" required>
+                            <input type="text" class="form-control" id="calle" name="calle" placeholder="Av. Corrientes" required>
                             <div class="invalid-feedback">Por favor ingresa la calle.</div>
                         </div>
                         
                         <div class="col-md-3 mb-3">
                             <label for="numero" class="form-label">Número <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="numero" placeholder="1234" required>
+                            <input type="text" class="form-control" id="numero" name="numero" placeholder="1234" required>
                             <div class="invalid-feedback">Por favor ingresa el número.</div>
                         </div>
                         
                         <div class="col-md-3 mb-3">
                             <label for="piso" class="form-label">Piso/Depto</label>
-                            <input type="text" class="form-control" id="piso" placeholder="1° A">
+                            <input type="text" class="form-control" id="piso" name="piso" placeholder="1° A">
                         </div>
                         
                         <div class="col-md-4 mb-3">
                             <label for="localidad" class="form-label">Localidad <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="localidad" placeholder="Ciudad Autónoma de Buenos Aires" required>
+                            <input type="text" class="form-control" id="localidad" name="localidad" placeholder="Ciudad Autónoma de Buenos Aires" required>
                             <div class="invalid-feedback">Por favor ingresa la localidad.</div>
                         </div>
                         
                         <div class="col-md-4 mb-3">
                             <label for="provincia" class="form-label">Provincia <span class="text-danger">*</span></label>
-                            <select class="form-select" id="provincia" required>
+                            <select class="form-select" id="provincia" name="provincia" required>
                                 <option value="">Seleccionar provincia</option>
                                 <option value="CABA">Ciudad Autónoma de Buenos Aires</option>
                                 <option value="BA">Buenos Aires</option>
@@ -169,7 +175,7 @@ $current_page = "razon_social";
                         
                         <div class="col-md-4 mb-3">
                             <label for="codigoPostal" class="form-label">Código Postal</label>
-                            <input type="text" class="form-control" id="codigoPostal" placeholder="C1000ABC">
+                            <input type="text" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="C1000ABC">
                         </div>
                     </div>
 
@@ -181,7 +187,7 @@ $current_page = "razon_social";
                         
                         <div class="col-12 mb-3">
                             <label for="observaciones" class="form-label">Observaciones</label>
-                            <textarea class="form-control" id="observaciones" rows="3" placeholder="Notas adicionales..."></textarea>
+                            <textarea class="form-control" id="observaciones" name="observaciones" rows="3" placeholder="Notas adicionales..."></textarea>
                         </div>
                     </div>
 
@@ -193,7 +199,7 @@ $current_page = "razon_social";
                         
                         <div class="col-md-6 mb-3">
                             <label for="estado" class="form-label">Estado <span class="text-danger">*</span></label>
-                            <select class="form-select" id="estado" required>
+                            <select class="form-select" id="estado" name="estado" required>
                                 <option value="activo" selected>Activo</option>
                                 <option value="inactivo">Inactivo</option>
                                 <option value="suspendido">Suspendido</option>
@@ -261,21 +267,21 @@ $current_page = "razon_social";
         }
         
         // Simular envío exitoso
-        showAlert('Razón social guardada correctamente.', 'success');
-        this.classList.remove('was-validated');
+        // showAlert('Razón social guardada correctamente.', 'success');
+        // this.classList.remove('was-validated');
         
         // Aquí iría la lógica real de envío al servidor
-        // const formData = new FormData(this);
-        // fetch('guardar_razon_social.php', { method: 'POST', body: formData })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.success) {
-        //             showAlert('Razón social guardada correctamente.', 'success');
-        //             resetForm();
-        //         } else {
-        //             showAlert('Error al guardar: ' + data.message, 'danger');
-        //         }
-        //     });
+        const formData = new FormData(this);
+        fetch('titularesGuardarController.php', { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert('Razón social guardada correctamente.', 'success');
+                    resetForm();
+                } else {
+                    showAlert('Error al guardar: ' + data.message, 'danger');
+                }
+            });
     });
 
     // Función para mostrar alertas

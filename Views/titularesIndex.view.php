@@ -83,147 +83,55 @@ $current_page = "razon_social";
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            // Datos de ejemplo (en un caso real vendrían de la base de datos)
-                            $razonesSociales = [
-                                [
-                                    'id' => 1,
-                                    'razon_social' => 'Empresa Tech Solutions S.A.',
-                                    'cuit' => '30-12345678-9',
-                                    'email' => 'contacto@techsolutions.com',
-                                    'telefono' => '+54 11 4321-5678',
-                                    'condicion_iva' => 'Responsable Inscripto',
-                                    'localidad' => 'CABA',
-                                    'estado' => 'activo',
-                                    'fecha_alta' => '2023-01-15'
-                                ],
-                                [
-                                    'id' => 2,
-                                    'razon_social' => 'Distribuidora Norte S.R.L.',
-                                    'cuit' => '27-87654321-0',
-                                    'email' => 'ventas@distribuidoranorte.com',
-                                    'telefono' => '+54 11 8765-4321',
-                                    'condicion_iva' => 'Monotributista',
-                                    'localidad' => 'San Isidro',
-                                    'estado' => 'activo',
-                                    'fecha_alta' => '2023-02-20'
-                                ],
-                                [
-                                    'id' => 3,
-                                    'razon_social' => 'Consultora Estratégica Integral',
-                                    'cuit' => '20-11223344-5',
-                                    'email' => 'info@consultoraei.com',
-                                    'telefono' => '+54 11 5566-7788',
-                                    'condicion_iva' => 'Responsable Inscripto',
-                                    'localidad' => 'CABA',
-                                    'estado' => 'inactivo',
-                                    'fecha_alta' => '2022-11-10'
-                                ],
-                                [
-                                    'id' => 4,
-                                    'razon_social' => 'Almacén Don José',
-                                    'cuit' => '23-44332211-6',
-                                    'email' => 'donjose@almacen.com',
-                                    'telefono' => '+54 11 9988-7766',
-                                    'condicion_iva' => 'Monotributista',
-                                    'localidad' => 'Lomas de Zamora',
-                                    'estado' => 'activo',
-                                    'fecha_alta' => '2023-03-05'
-                                ],
-                                [
-                                    'id' => 5,
-                                    'razon_social' => 'Constructora Edifica S.A.',
-                                    'cuit' => '30-55667788-1',
-                                    'email' => 'obra@edifica.com',
-                                    'telefono' => '+54 11 2233-4455',
-                                    'condicion_iva' => 'Responsable Inscripto',
-                                    'localidad' => 'La Plata',
-                                    'estado' => 'suspendido',
-                                    'fecha_alta' => '2022-09-18'
-                                ],
-                                [
-                                    'id' => 6,
-                                    'razon_social' => 'Farmacia Central',
-                                    'cuit' => '24-33445566-7',
-                                    'email' => 'info@farmaciacentral.com',
-                                    'telefono' => '+54 11 6677-8899',
-                                    'condicion_iva' => 'Monotributista',
-                                    'localidad' => 'Morón',
-                                    'estado' => 'activo',
-                                    'fecha_alta' => '2023-04-12'
-                                ],
-                                [
-                                    'id' => 7,
-                                    'razon_social' => 'Transportes Rápidos S.A.',
-                                    'cuit' => '30-77889900-2',
-                                    'email' => 'logistica@transportesrapidos.com',
-                                    'telefono' => '+54 11 4455-6677',
-                                    'condicion_iva' => 'Responsable Inscripto',
-                                    'localidad' => 'Avellaneda',
-                                    'estado' => 'activo',
-                                    'fecha_alta' => '2023-05-22'
-                                ],
-                                [
-                                    'id' => 8,
-                                    'razon_social' => 'Estudio Jurídico Asociados',
-                                    'cuit' => '27-99887766-3',
-                                    'email' => 'abogados@estudiojuridico.com',
-                                    'telefono' => '+54 11 3344-5566',
-                                    'condicion_iva' => 'Responsable Inscripto',
-                                    'localidad' => 'CABA',
-                                    'estado' => 'inactivo',
-                                    'fecha_alta' => '2022-12-03'
-                                ]
-                            ];
-
-                            foreach ($razonesSociales as $razon): 
-                            ?>
-                            <tr>
-                                <td><?php echo $razon['id']; ?></td>
-                                <td>
-                                    <div class="fw-bold"><?php echo htmlspecialchars($razon['razon_social']); ?></div>
-                                    <small class="text-muted">ID: <?php echo $razon['id']; ?></small>
-                                </td>
-                                <td><?php echo $razon['cuit']; ?></td>
-                                <td><?php echo htmlspecialchars($razon['email']); ?></td>
-                                <td><?php echo $razon['telefono']; ?></td>
-                                <td>
-                                    <span class="badge bg-info"><?php echo $razon['condicion_iva']; ?></span>
-                                </td>
-                                <td><?php echo $razon['localidad']; ?></td>
-                                <td>
-                                    <?php 
-                                    $badge_class = '';
-                                    switch($razon['estado']) {
-                                        case 'activo': $badge_class = 'badge-activo'; break;
-                                        case 'inactivo': $badge_class = 'badge-inactivo'; break;
-                                        case 'suspendido': $badge_class = 'badge-suspendido'; break;
-                                    }
-                                    ?>
-                                    <span class="badge <?php echo $badge_class; ?>">
-                                        <?php echo ucfirst($razon['estado']); ?>
-                                    </span>
-                                </td>
-                                <td><?php echo date('d/m/Y', strtotime($razon['fecha_alta'])); ?></td>
-                                <td>
+                            <?php foreach ($razonesSociales as $razon) { ?>
+                                <tr>
+                                    <td><?= $razon->id ?></td>
+                                    <td>
+                                        <div class="fw-bold"><?php echo htmlspecialchars($razon->nombre); ?></div>
+                                        <small class="text-muted">ID: <?php echo $razon->id; ?></small>
+                                    </td>
+                                    <td><?= $razon->cuit ?></td>
+                                    <td><?php echo htmlspecialchars($razon->email); ?></td>
+                                    <td><?= $razon->telefono ?></td>
+                                    <td>
+                                        <span class="badge bg-info"><?php echo $razon->condicion_iva; ?></span>
+                                    </td>
+                                    <td><?= $razon->localidad ?></td>
+                                    <td>
+                                        <?php 
+                                        $badge_class = '';
+                                        switch($razon->estado) {
+                                            case 'activo': $badge_class = 'badge-activo'; break;
+                                            case 'inactivo': $badge_class = 'badge-inactivo'; break;
+                                            case 'suspendido': $badge_class = 'badge-suspendido'; break;
+                                        }
+                                        ?>
+                                        <span class="badge <?php echo $badge_class; ?>">
+                                            <?php echo ucfirst($razon->estado); ?>
+                                        </span>
+                                    </td>
+                                    <td><?php echo date('d/m/Y', strtotime($razon->fecha_creacion)); ?></td>
+                                    <td>
                                     <div class="btn-group btn-group-sm">
-                                        <a href="razon_social_ver.php?id=<?php echo $razon['id']; ?>" 
+                                        <a href="razon_social_ver.php?id=<?php echo $razon->id; ?>" 
                                            class="btn btn-outline-primary" title="Ver">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <a href="razon_social.php?editar=<?php echo $razon['id']; ?>" 
+                                        <a href="razon_social.php?editar=<?php echo $razon->id; ?>" 
                                            class="btn btn-outline-secondary" title="Editar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <button class="btn btn-outline-danger" 
                                                 title="Eliminar"
-                                                onclick="confirmarEliminar(<?php echo $razon['id']; ?>, '<?php echo htmlspecialchars($razon['razon_social']); ?>')">
+                                                onclick="confirmarEliminar(<?php echo $razon->id; ?>, '<?php echo htmlspecialchars($razon->nombre); ?>')">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
                                 </td>
-                            </tr>
-                            <?php endforeach; ?>
+                                </tr>
+                            <?php } ?>
+
+                            
                         </tbody>
                     </table>
                 </div>
