@@ -11,9 +11,11 @@ $current_page = "comercios";
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
 
 <style>
-    .badge-activo { background-color: #28a745; }
-    .badge-inactivo { background-color: #6c757d; }
-    .badge-suspendido { background-color: #ffc107; color: #212529; }
+    .badge-aprobado { background-color: #28a745; }
+    .badge-pendiente { background-color: #6c757d; }
+    .badge-rechazado { background-color: #e32d00ff; }
+    .badge-suspendido { background-color: #fe2bd0ff; }
+    .badge-en_revision { background-color: #ffc107; color: #212529; }
     .badge-construccion { background-color: #17a2b8; }
     .table-responsive { border-radius: 8px; overflow: hidden; }
 </style>
@@ -74,145 +76,54 @@ $current_page = "comercios";
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            // Datos de ejemplo (en la práctica vendrían de la BD con JOIN)
-                            $comercios = [
-                                [
-                                    'id' => 1,
-                                    'nombre_comercio' => 'Sucursal Centro',
-                                    'nombre_fantasia' => 'TechStore Centro',
-                                    'razon_social_id' => 1,
-                                    'razon_social_nombre' => 'Empresa Tech Solutions S.A.',
-                                    'rubro' => 'Electrónica',
-                                    'direccion' => 'Av. Corrientes 1234',
-                                    'localidad' => 'CABA',
-                                    'telefono' => '+54 11 4321-5678',
-                                    'estado' => 'activo',
-                                    'fecha_alta' => '2023-06-15',
-                                    'tiene_ecommerce' => true
-                                ],
-                                [
-                                    'id' => 2,
-                                    'nombre_comercio' => 'Sucursal Norte',
-                                    'nombre_fantasia' => 'Distribuidora Norte',
-                                    'razon_social_id' => 2,
-                                    'razon_social_nombre' => 'Distribuidora Norte S.R.L.',
-                                    'rubro' => 'Alimentos y Bebidas',
-                                    'direccion' => 'Av. del Libertador 567',
-                                    'localidad' => 'San Isidro',
-                                    'telefono' => '+54 11 8765-4321',
-                                    'estado' => 'activo',
-                                    'fecha_alta' => '2023-07-20',
-                                    'tiene_ecommerce' => false
-                                ],
-                                [
-                                    'id' => 3,
-                                    'nombre_comercio' => 'Consultorio Principal',
-                                    'nombre_fantasia' => 'CEI Consultores',
-                                    'razon_social_id' => 3,
-                                    'razon_social_nombre' => 'Consultora Estratégica Integral',
-                                    'rubro' => 'Servicios',
-                                    'direccion' => 'Paraguay 890',
-                                    'localidad' => 'CABA',
-                                    'telefono' => '+54 11 5566-7788',
-                                    'estado' => 'inactivo',
-                                    'fecha_alta' => '2022-12-10',
-                                    'tiene_ecommerce' => true
-                                ],
-                                [
-                                    'id' => 4,
-                                    'nombre_comercio' => 'Local Principal',
-                                    'nombre_fantasia' => 'Almacén Don José',
-                                    'razon_social_id' => 4,
-                                    'razon_social_nombre' => 'Almacén Don José',
-                                    'rubro' => 'Alimentos y Bebidas',
-                                    'direccion' => 'Av. Hipólito Yrigoyen 2345',
-                                    'localidad' => 'Lomas de Zamora',
-                                    'telefono' => '+54 11 9988-7766',
-                                    'estado' => 'activo',
-                                    'fecha_alta' => '2023-08-05',
-                                    'tiene_ecommerce' => false
-                                ],
-                                [
-                                    'id' => 5,
-                                    'nombre_comercio' => 'Obra Central',
-                                    'nombre_fantasia' => 'Edifica Constructora',
-                                    'razon_social_id' => 5,
-                                    'razon_social_nombre' => 'Constructora Edifica S.A.',
-                                    'rubro' => 'Servicios',
-                                    'direccion' => 'Calle 7 1234',
-                                    'localidad' => 'La Plata',
-                                    'telefono' => '+54 11 2233-4455',
-                                    'estado' => 'suspendido',
-                                    'fecha_alta' => '2023-01-18',
-                                    'tiene_ecommerce' => true
-                                ],
-                                [
-                                    'id' => 6,
-                                    'nombre_comercio' => 'Sucursal Online',
-                                    'nombre_fantasia' => 'TechStore Online',
-                                    'razon_social_id' => 1,
-                                    'razon_social_nombre' => 'Empresa Tech Solutions S.A.',
-                                    'rubro' => 'Electrónica',
-                                    'direccion' => 'Av. Digital 100',
-                                    'localidad' => 'CABA',
-                                    'telefono' => '+54 11 4000-5000',
-                                    'estado' => 'activo',
-                                    'fecha_alta' => '2023-09-01',
-                                    'tiene_ecommerce' => true
-                                ]
-                            ];
+                           <?php foreach($comercios as $comercio) {
+                            $badge_class = 'badge-' . $comercio->estado;
+                            $estado_label = ucfirst($comercio->estado);?>
+                                <tr>
+                                    <td><?php echo $comercio->id; ?></td>
+                                    <td>
+                                        <div class="fw-bold"><?php echo htmlspecialchars($comercio->nombre); ?></div>
+                                        <?php if($comercio->nombre_fantasia): ?>
+                                        <small class="text-muted">"<?php echo htmlspecialchars($comercio->nombre_fantasia); ?>"</small>
+                                        <?php endif; ?>
 
-                            foreach ($comercios as $comercio): 
-                                $badge_class = 'badge-' . $comercio['estado'];
-                                $estado_label = ucfirst($comercio['estado']);
-                            ?>
-                            <tr>
-                                <td><?php echo $comercio['id']; ?></td>
-                                <td>
-                                    <div class="fw-bold"><?php echo htmlspecialchars($comercio['nombre_comercio']); ?></div>
-                                    <?php if($comercio['nombre_fantasia']): ?>
-                                    <small class="text-muted">"<?php echo htmlspecialchars($comercio['nombre_fantasia']); ?>"</small>
-                                    <?php endif; ?>
-                                    <?php if($comercio['tiene_ecommerce']): ?>
-                                    <span class="badge bg-info ms-1" title="Tiene E-commerce">E</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <div class="small"><?php echo htmlspecialchars($comercio['razon_social_nombre']); ?></div>
-                                    <small class="text-muted">ID: <?php echo $comercio['razon_social_id']; ?></small>
-                                </td>
-                                <td><?php echo $comercio['rubro']; ?></td>
-                                <td>
-                                    <div><?php echo htmlspecialchars($comercio['direccion']); ?></div>
-                                    <small class="text-muted"><?php echo $comercio['localidad']; ?></small>
-                                </td>
-                                <td><?php echo $comercio['telefono']; ?></td>
-                                <td>
-                                    <span class="badge <?php echo $badge_class; ?>">
-                                        <?php echo $estado_label; ?>
-                                    </span>
-                                </td>
-                                <td><?php echo date('d/m/Y', strtotime($comercio['fecha_alta'])); ?></td>
-                                <td>
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="comercio_ver.php?id=<?php echo $comercio['id']; ?>" 
-                                           class="btn btn-outline-primary" title="Ver">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                        <a href="comercio.php?editar=<?php echo $comercio['id']; ?>" 
-                                           class="btn btn-outline-secondary" title="Editar">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <button class="btn btn-outline-danger" 
-                                                title="Eliminar"
-                                                onclick="confirmarEliminar(<?php echo $comercio['id']; ?>, '<?php echo htmlspecialchars($comercio['nombre_comercio']); ?>')">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
+                                    </td>
+                                    <td>
+                                        <div class="small"><?php echo htmlspecialchars($comercio->titular()->nombre); ?></div>
+                                        <small class="text-muted">ID: <?php echo $comercio->titular_id; ?></small>
+                                    </td>
+                                    <td><?php echo $comercio->rubro()->nombre; ?></td>
+                                    <td>
+                                        <div><?php echo htmlspecialchars($comercio->direccion); ?></div>
+                                        <small class="text-muted"><?php echo $comercio->localidad; ?></small>
+                                    </td>
+                                    <td><?php echo $comercio->telefono; ?></td>
+                                    <td>
+                                        <span class="badge <?php echo $badge_class; ?>">
+                                            <?php echo $estado_label; ?>
+                                        </span>
+                                    </td>
+                                    <td><?php echo date('d/m/Y', strtotime($comercio->fecha_alta)); ?></td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="comercio_ver.php?id=<?php echo $comercio->id; ?>" 
+                                            class="btn btn-outline-primary" title="Ver">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="comercio.php?editar=<?php echo $comercio->id; ?>" 
+                                            class="btn btn-outline-secondary" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button class="btn btn-outline-danger" 
+                                                    title="Eliminar"
+                                                    onclick="confirmarEliminar(<?php echo $comercio->id; ?>, '<?php echo htmlspecialchars($comercio->nombre); ?>')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+
                         </tbody>
                     </table>
                 </div>

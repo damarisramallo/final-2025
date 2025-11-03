@@ -113,14 +113,15 @@ $current_page = "razon_social";
                                     <td><?php echo date('d/m/Y', strtotime($razon->fecha_creacion)); ?></td>
                                     <td>
                                     <div class="btn-group btn-group-sm">
-                                        <a href="razon_social_ver.php?id=<?php echo $razon->id; ?>" 
+                                        <a href="titularesVerController.php?id=<?php echo $razon->id; ?>" 
                                            class="btn btn-outline-primary" title="Ver">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <a href="razon_social.php?editar=<?php echo $razon->id; ?>" 
-                                           class="btn btn-outline-secondary" title="Editar">
+                                        <a href="titularesEditarController.php?idRazon=<?= $razon->id ?>"
+                                            class="btn btn-outline-secondary" title="Editar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
+                                
                                         <button class="btn btn-outline-danger" 
                                                 title="Eliminar"
                                                 onclick="confirmarEliminar(<?php echo $razon->id; ?>, '<?php echo htmlspecialchars($razon->nombre); ?>')">
@@ -141,20 +142,22 @@ $current_page = "razon_social";
 </div>
 
 <!-- Modal de Confirmación Eliminar -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+ <div class="modal fade" id="confirmDeleteModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Confirmar Eliminación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Confirmar eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p>¿Estás seguro de que deseas eliminar la razón social <strong id="razonSocialDeleteName"></strong>?</p>
-                <p class="text-danger"><small>Esta acción no se puede deshacer.</small></p>
+                ¿Está seguro que desea eliminar la razón social <strong id="razonSocialDeleteName"></strong>?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <a href="#" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</a>
+                <form method="POST" action="titularesEliminarController.php">
+                    <input type="hidden" name="id" id="deleteIdInput">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
             </div>
         </div>
     </div>
@@ -223,14 +226,14 @@ $current_page = "razon_social";
         });
     });
 
-    // Función para confirmar eliminación
+
     function confirmarEliminar(id, nombre) {
         document.getElementById('razonSocialDeleteName').textContent = nombre;
-        document.getElementById('confirmDeleteBtn').href = `razon_social_eliminar.php?id=${id}`;
+        document.getElementById('deleteIdInput').value = id;
         $('#confirmDeleteModal').modal('show');
     }
 
-    // Función para exportar datos
+ 
     function exportarDatos(tipo) {
         alert(`Exportando datos en formato ${tipo.toUpperCase()}...`);
         // En un caso real, aquí iría la lógica de exportación
