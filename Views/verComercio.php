@@ -4,7 +4,7 @@ $page_title = "Información del Comercio";
 $current_page = "ver_comercio";
 
 // Simulación de conexión a la base de datos
-$comercio_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+// $comercio_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Datos de ejemplo (en un caso real, estos vendrían de la base de datos)
 $comercio_data = [
@@ -30,11 +30,11 @@ $comercio_data = [
 ];
 
 // Si no existe el comercio, mostrar error
-if ($comercio_id === 0) {
-    header('HTTP/1.0 404 Not Found');
-    die('Comercio no encontrado');
-}
-?>
+// if ($comercio_id === 0) {
+//     header('HTTP/1.0 404 Not Found');
+//     die('Comercio no encontrado');
+// }
+// ?>
 
 <!DOCTYPE html>
 <html lang="es">

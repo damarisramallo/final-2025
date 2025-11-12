@@ -113,10 +113,12 @@ $current_page = "razon_social";
                                     <td><?php echo date('d/m/Y', strtotime($razon->fecha_creacion)); ?></td>
                                     <td>
                                     <div class="btn-group btn-group-sm">
-                                        <a href="titularesVerController.php?id=<?php echo $razon->id; ?>" 
-                                           class="btn btn-outline-primary" title="Ver">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
+                                        <button class="btn btn-outline-primary" 
+                                                title="Ver"
+                                                onclick="mostrarTitular(<?= $razon->id ?>)">
+                                                <i class="bi bi-eye"></i>
+                                        </button>
+
                                         <a href="titularesEditarController.php?idRazon=<?= $razon->id ?>"
                                             class="btn btn-outline-secondary" title="Editar">
                                             <i class="bi bi-pencil"></i>
@@ -162,6 +164,23 @@ $current_page = "razon_social";
         </div>
     </div>
 </div>
+
+<!-- Modal de Ver Titular -->
+
+<div class="modal fade" id="verTitularModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Titular</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>    
+
+            <div class="modal-body">
+            </div>                              
+        </div>
+    </div>
+</div>
+
 
 <!-- DataTables JavaScript -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -233,6 +252,38 @@ $current_page = "razon_social";
         $('#confirmDeleteModal').modal('show');
     }
 
+    function mostrarTitular(id) {
+        $('#verTitularModal .modal-body').html('<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Cargando...</span></div></div>');
+        
+        $('#verTitularModal').modal('show');
+        
+        $.ajax({
+            url: 'titularesVerController.php',
+            type: 'GET',
+            data: { id: id },
+            dataType: 'json',
+            success: function(razon) {
+                $('#verTitularModal .modal-body').html(`
+                    <div class="card-body">
+                        <h5 class="card-title">${razon.nombre}</h5>
+                        <hr>
+                        <p class="card-text"><strong>Tipo de persona: </strong>${razon.tipo}</p>
+                        <p class="card-text"><strong>Email: </strong>${razon.email}</p>
+                        <p class="card-text"><strong>CUIT/CUIL: </strong>${razon.cuit}</p>
+                        <p class="card-text"><strong>Teléfono: </strong>${razon.telefono}</p>
+                        <p class="card-text"><strong>Sitio Web: </strong>${razon.web}</p>
+                        <p class="card-text"><strong>Celular: </strong>${razon.celular}</p>
+                        <p class="card-text"><strong>Localidad: </strong>${razon.localidad}</p>
+                        <p class="card-text"><strong>Provincia: </strong>${razon.provincia}</p>
+                        <p class="card-text"><strong>Estado: </strong>${razon.estado}</p>
+                    </div>
+                `);
+            },
+            error: function() {
+                $('#verTitularModal .modal-body').html('<div class="alert alert-danger">Error al cargar los datos de la razón social</div>');
+            }
+        });
+    }
  
     function exportarDatos(tipo) {
         alert(`Exportando datos en formato ${tipo.toUpperCase()}...`);

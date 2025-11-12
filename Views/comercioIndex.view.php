@@ -11,15 +11,13 @@ $current_page = "comercios";
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
 
 <style>
-    .badge-aprobado { background-color: #28a745; }
+    .badge-activo { background-color: #28a745; }
     .badge-pendiente { background-color: #6c757d; }
-    .badge-rechazado { background-color: #e32d00ff; }
-    .badge-suspendido { background-color: #fe2bd0ff; }
-    .badge-en_revision { background-color: #ffc107; color: #212529; }
-    .badge-construccion { background-color: #17a2b8; }
+    .badge-inactivo { background-color: #ffc107; color: #212529; }
+    .badge-en_construccion { background-color: #17a2b8; }
     .table-responsive { border-radius: 8px; overflow: hidden; }
 </style>
-
+<!-- Arreglar el estado -->
 <div id="content">
     <header id="header">
         <button class="toggle-sidebar">
@@ -106,12 +104,14 @@ $current_page = "comercios";
                                     <td><?php echo date('d/m/Y', strtotime($comercio->fecha_alta)); ?></td>
                                     <td>
                                         <div class="btn-group btn-group-sm">
-                                            <a href="comercio_ver.php?id=<?php echo $comercio->id; ?>" 
-                                            class="btn btn-outline-primary" title="Ver">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                            <a href="comercio.php?editar=<?php echo $comercio->id; ?>" 
-                                            class="btn btn-outline-secondary" title="Editar">
+                                            <button class="btn btn-outline-primary" 
+                                                    title="Ver"
+                                                    onclick="mostrarComercio(<?= $comercio->id?>)">
+                                                    <i class="bi bi-eye"></i>
+                                            </button>
+
+                                            <a href="comercioEditarController.php?idComercio=<?= $comercio->id ?>" 
+                                                class="btn btn-outline-secondary" title="Editar">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                             <button class="btn btn-outline-danger" 
@@ -144,13 +144,34 @@ $current_page = "comercios";
                 <p>¿Estás seguro de que deseas eliminar el comercio <strong id="comercioDeleteName"></strong>?</p>
                 <p class="text-danger"><small>Esta acción no se puede deshacer.</small></p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <a href="#" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</a>
-            </div>
+            <form method="POST" action="comercioEliminarController.php">
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="deleteIdInput">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+<!-- Modal de Ver Comercio -->
+
+<div class="modal fade" id="verComercioModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Comercio</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>    
+
+            <div class="modal-body">
+            </div>                              
+        </div>
+    </div>
+</div>
+
+
 
 <!-- DataTables JavaScript -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -214,9 +235,51 @@ $current_page = "comercios";
     // Función para confirmar eliminación
     function confirmarEliminar(id, nombre) {
         document.getElementById('comercioDeleteName').textContent = nombre;
-        document.getElementById('confirmDeleteBtn').href = `comercio_eliminar.php?id=${id}`;
+        document.getElementById('deleteIdInput').value = id;
         $('#confirmDeleteModal').modal('show');
     }
+
+    function mostrarComercio(id) {
+    // Mostrar un loader mientras carga
+    $('#verComercioModal .modal-body').html('<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Cargando...</span></div></div>');
+    
+    // Mostrar el modal
+    $('#verComercioModal').modal('show');
+    
+    // Hacer petición AJAX
+    $.ajax({
+        url: 'comercioVerController.php',
+        type: 'GET',
+        data: { id: id },
+        dataType: 'json',
+        success: function(comercio) {
+            $('#verComercioModal .modal-body').html(`
+                <div class="card-body">
+                    <h5 class="card-title">${comercio.nombre}</h5>
+                    <hr>
+                    <p class="card-text"><strong>Razón Social: </strong>${comercio.razon_social}</p>
+                    <p class="card-text"><strong>Nombre: </strong>${comercio.nombre}</p>
+                    <p class="card-text"><strong>Nombre Fantasía: </strong>${comercio.nombre_fantasia}</p>
+                    <p class="card-text"><strong>Rubro: </strong>${comercio.rubro}</p>
+                    <p class="card-text"><strong>Subrubro: </strong>${comercio.subrubro}</p>
+                    <p class="card-text"><strong>Teléfono: </strong>${comercio.telefono}</p>
+                    <p class="card-text"><strong>Email: </strong>${comercio.email_contacto}</p>
+                    <p class="card-text"><strong>Sitio Web: </strong>${comercio.sitio_web}</p>
+                    <p class="card-text"><strong>Dirección: </strong>${comercio.direccion}</p>
+                    <p class="card-text"><strong>Localidad: </strong>${comercio.localidad}</p>
+                    <p class="card-text"><strong>Código Postal: </strong>${comercio.codigo_postal}</p>
+                    <p class="card-text"><strong>Provincia: </strong>${comercio.provincia}</p>
+                    <p class="card-text"><strong>Zona/Barrio: </strong>${comercio.barrio}</p>
+                    <p class="card-text"><strong>Estado: </strong>${comercio.estado}</p>
+                </div>
+            `);
+        },
+        error: function() {
+            $('#verComercioModal .modal-body').html('<div class="alert alert-danger">Error al cargar los datos del comercio</div>');
+        }
+    });
+}
+
 </script>
 
 <?php include 'footer.php'; ?>
