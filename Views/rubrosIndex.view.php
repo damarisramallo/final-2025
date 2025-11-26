@@ -139,205 +139,58 @@ $current_page = "rubros";
                             <tr>
                                 <th>ID</th>
                                 <th>Rubro</th>
+                                <th>Descripción</th>
                                 <th>Código</th>
-                                <th>Categoría</th>
-                                <th>Nivel</th>
                                 <th>Comercios</th>
-                                <th>Comisión</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            // Datos de ejemplo (en la práctica vendrían de la BD)
-                            $rubros = [
-                                [
-                                    'id' => 1,
-                                    'nombre' => 'Alimentos y Bebidas',
-                                    'codigo' => 'ALI',
-                                    'color' => '#28a745',
-                                    'icono' => 'bi-utensils',
-                                    'rubro_padre' => null,
-                                    'nivel' => 1,
-                                    'comercios' => 45,
-                                    'comision' => 5.0,
-                                    'activo' => true,
-                                    'ecommerce' => true,
-                                    'orden' => 1
-                                ],
-                                [
-                                    'id' => 2,
-                                    'nombre' => 'Electrónica',
-                                    'codigo' => 'ELE',
-                                    'color' => '#007bff',
-                                    'icono' => 'bi-laptop',
-                                    'rubro_padre' => null,
-                                    'nivel' => 1,
-                                    'comercios' => 23,
-                                    'comision' => 7.5,
-                                    'activo' => true,
-                                    'ecommerce' => true,
-                                    'orden' => 2
-                                ],
-                                [
-                                    'id' => 3,
-                                    'nombre' => 'Restaurantes',
-                                    'codigo' => 'RES',
-                                    'color' => '#dc3545',
-                                    'icono' => 'bi-utensils',
-                                    'rubro_padre' => 1,
-                                    'nivel' => 2,
-                                    'comercios' => 15,
-                                    'comision' => 8.0,
-                                    'activo' => true,
-                                    'ecommerce' => true,
-                                    'orden' => 3
-                                ],
-                                [
-                                    'id' => 4,
-                                    'nombre' => 'Supermercados',
-                                    'codigo' => 'SUP',
-                                    'color' => '#20c997',
-                                    'icono' => 'bi-cart',
-                                    'rubro_padre' => 1,
-                                    'nivel' => 2,
-                                    'comercios' => 8,
-                                    'comision' => 4.5,
-                                    'activo' => true,
-                                    'ecommerce' => true,
-                                    'orden' => 4
-                                ],
-                                [
-                                    'id' => 5,
-                                    'nombre' => 'Servicios Técnicos',
-                                    'codigo' => 'SER',
-                                    'color' => '#6f42c1',
-                                    'icono' => 'bi-tools',
-                                    'rubro_padre' => null,
-                                    'nivel' => 1,
-                                    'comercios' => 12,
-                                    'comision' => 10.0,
-                                    'activo' => true,
-                                    'ecommerce' => false,
-                                    'orden' => 5
-                                ],
-                                [
-                                    'id' => 6,
-                                    'nombre' => 'Indumentaria',
-                                    'codigo' => 'IND',
-                                    'color' => '#fd7e14',
-                                    'icono' => 'bi-bag',
-                                    'rubro_padre' => null,
-                                    'nivel' => 1,
-                                    'comercios' => 34,
-                                    'comision' => 6.0,
-                                    'activo' => true,
-                                    'ecommerce' => true,
-                                    'orden' => 6
-                                ],
-                                [
-                                    'id' => 7,
-                                    'nombre' => 'Ropa Deportiva',
-                                    'codigo' => 'DEP',
-                                    'color' => '#e83e8c',
-                                    'icono' => 'bi-heart',
-                                    'rubro_padre' => 6,
-                                    'nivel' => 2,
-                                    'comercios' => 9,
-                                    'comision' => 7.0,
-                                    'activo' => true,
-                                    'ecommerce' => true,
-                                    'orden' => 7
-                                ],
-                                [
-                                    'id' => 8,
-                                    'nombre' => 'Farmacias',
-                                    'codigo' => 'FAR',
-                                    'color' => '#17a2b8',
-                                    'icono' => 'bi-heart',
-                                    'rubro_padre' => null,
-                                    'nivel' => 1,
-                                    'comercios' => 7,
-                                    'comision' => 3.5,
-                                    'activo' => false,
-                                    'ecommerce' => false,
-                                    'orden' => 8
-                                ]
-                            ];
-
-                            foreach ($rubros as $rubro): 
-                                $estado = $rubro['activo'] ? 'activo' : 'inactivo';
-                                $nivel_label = 'Nivel ' . $rubro['nivel'];
-                                $rubro_padre_nombre = '';
-                                
-                                if ($rubro['rubro_padre']) {
-                                    foreach ($rubros as $padre) {
-                                        if ($padre['id'] == $rubro['rubro_padre']) {
-                                            $rubro_padre_nombre = $padre['nombre'];
-                                            break;
-                                        }
-                                    }
-                                }
+                            foreach ($rubros as $rubro){
+                                $estado = $rubro->activo ? 'activo' : 'inactivo';
                             ?>
-                            <tr class="<?php echo !$rubro['activo'] ? 'table-secondary' : ''; ?>">
-                                <td><?php echo $rubro['id']; ?></td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span class="color-badge" style="background-color: <?php echo $rubro['color']; ?>"></span>
-                                        <i class="rubro-icon <?php echo $rubro['icono']; ?>"></i>
-                                        <div>
-                                            <div class="fw-bold"><?php echo htmlspecialchars($rubro['nombre']); ?></div>
-                                            <?php if($rubro_padre_nombre): ?>
-                                            <small class="text-muted">Subcategoría de: <?php echo htmlspecialchars($rubro_padre_nombre); ?></small>
-                                            <?php endif; ?>
+                                <tr class="<?php echo !$rubro->activo ? 'table-secondary' : ''; ?>">
+                                    <td><?= $rubro->id ?></td>
+                                    <td>
+                                        <div class="fw-bold"><?php echo htmlspecialchars($rubro->nombre); ?></div>
+                                    </td>
+                                    <td>
+                                        
+                                        <small class="text-muted"><?php echo htmlspecialchars($rubro->descripcion); ?></small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-dark"><?= $rubro->codigo ?></span>
+                                        
+                                    </td>
+                                    <td>Acá irian la cantidad de comercios</td>
+                                    <td>
+                                        <span class="badge <?= 'badge-' . $estado; ?>">
+                                            <?php echo ucfirst($estado); ?>
+                                        </span>
+                                    </td>
+                                    
+                                
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="rubro_ver.php?id=<?php echo $rubro->id; ?>" 
+                                            class="btn btn-outline-primary" title="Ver">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="rubrosEditarController.php?idRubro=<?= $rubro->id ?>" 
+                                            class="btn btn-outline-secondary" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button class="btn btn-outline-danger" 
+                                                    title="Eliminar"
+                                                    onclick="confirmarEliminar(<?php echo $rubro->id; ?>, '<?php echo htmlspecialchars($rubro->nombre); ?>')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge bg-dark"><?php echo $rubro['codigo']; ?></span>
-                                </td>
-                                <td>
-                                    <?php if($rubro['nivel'] == 1): ?>
-                                        <span class="badge bg-primary">Principal</span>
-                                    <?php else: ?>
-                                        <span class="badge bg-secondary">Subcategoría</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?php echo $nivel_label; ?></td>
-                                <td>
-                                    <span class="badge bg-info"><?php echo $rubro['comercios']; ?> comercios</span>
-                                </td>
-                                <td>
-                                    <span class="fw-bold"><?php echo number_format($rubro['comision'], 1); ?>%</span>
-                                </td>
-                                <td>
-                                    <span class="badge <?php echo 'badge-' . $estado; ?>">
-                                        <?php echo ucfirst($estado); ?>
-                                    </span>
-                                    <?php if($rubro['ecommerce']): ?>
-                                    <span class="badge bg-success ms-1" title="Permite E-commerce">E</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="rubro_ver.php?id=<?php echo $rubro['id']; ?>" 
-                                           class="btn btn-outline-primary" title="Ver">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                        <a href="rubro.php?editar=<?php echo $rubro['id']; ?>" 
-                                           class="btn btn-outline-secondary" title="Editar">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <button class="btn btn-outline-danger" 
-                                                title="Eliminar"
-                                                onclick="confirmarEliminar(<?php echo $rubro['id']; ?>, '<?php echo htmlspecialchars($rubro['nombre']); ?>')">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
+                                    </td>
+                                </tr>
+                            <?php }; ?>
                         </tbody>
                     </table>
                 </div>
@@ -359,8 +212,11 @@ $current_page = "rubros";
                 <p class="text-danger"><small>Esta acción eliminará también todas las subcategorías asociadas.</small></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <a href="#" class="btn btn-danger" id="confirmDeleteBtn">Eliminar</a>
+                <form method="POST" action="rubrosEliminarController.php">
+                    <input type="hidden" name="id" id="deleteIdInput">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
             </div>
         </div>
     </div>
@@ -410,11 +266,11 @@ $current_page = "rubros";
             ],
             columnDefs: [
                 { responsivePriority: 1, targets: 1 }, // Rubro
-                { responsivePriority: 2, targets: 8 }, // Acciones
-                { responsivePriority: 3, targets: 5 }, // Comercios
+                { responsivePriority: 2, targets: 6 }, // Acciones
+                { responsivePriority: 3, targets: 4 }, // Comercios
                 { 
                     targets: [0], // Columna ID
-                    visible: false,
+                    visible: true,
                     searchable: false
                 }
             ],
@@ -436,7 +292,7 @@ $current_page = "rubros";
     // Función para confirmar eliminación
     function confirmarEliminar(id, nombre) {
         document.getElementById('rubroDeleteName').textContent = nombre;
-        document.getElementById('confirmDeleteBtn').href = `rubro_eliminar.php?id=${id}`;
+        document.getElementById('deleteIdInput').value = id;
         $('#confirmDeleteModal').modal('show');
     }
 </script>

@@ -1,16 +1,12 @@
 <?php
 
 header('Content-Type: application/json');
-error_reporting(0);
+
 
 try {
     require_once __DIR__ . '/../Config/Conexion.php';
     require_once __DIR__ . '/../Models/Comercio.php';
 
-    
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        throw new Exception('Método no permitido');
-    }
 
     $id_titular = $_POST['razonSocialId'] ?? '';
     $nombre = $_POST['nombreComercio'] ?? '';

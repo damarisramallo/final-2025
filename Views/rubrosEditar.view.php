@@ -1,95 +1,9 @@
-<?php 
-$page_title = "Rubro - Alta";
-$current_page = "rubros";
+<?php
+$page_title = "Razón Social - Editar";
+$current_page = "razon_social";
 ?>
 <?php include 'header.php'; ?>
 <?php include 'sidebar.php'; ?>
-
-<style>
-    .form-section {
-        background: #f8f9fa;
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        border-left: 4px solid var(--primary-color);
-    }
-    .form-section h6 {
-        color: var(--primary-color);
-        margin-bottom: 1rem;
-    }
-    .required-label::after {
-        content: " *";
-        color: #dc3545;
-    }
-    .documentacion-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-    .documentacion-item {
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        padding: 1rem;
-        background: white;
-        transition: all 0.3s ease;
-    }
-    .documentacion-item:hover {
-        border-color: var(--primary-color);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .documentacion-item.selected {
-        border-color: var(--primary-color);
-        background-color: rgba(67, 97, 238, 0.05);
-    }
-    .color-preview {
-        width: 30px;
-        height: 30px;
-        border-radius: 4px;
-        display: inline-block;
-        margin-left: 10px;
-        border: 1px solid #dee2e6;
-    }
-    .custom-checkbox {
-        position: relative;
-        cursor: pointer;
-    }
-    .custom-checkbox input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-    }
-    .checkmark {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 20px;
-        width: 20px;
-        background-color: #fff;
-        border: 2px solid #dee2e6;
-        border-radius: 4px;
-        transition: all 0.3s;
-    }
-    .custom-checkbox input:checked ~ .checkmark {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
-    }
-    .checkmark:after {
-        content: "";
-        position: absolute;
-        display: none;
-        left: 6px;
-        top: 2px;
-        width: 5px;
-        height: 10px;
-        border: solid white;
-        border-width: 0 2px 2px 0;
-        transform: rotate(45deg);
-    }
-    .custom-checkbox input:checked ~ .checkmark:after {
-        display: block;
-    }
-</style>
 
 <div id="content">
     <header id="header">
@@ -98,72 +12,61 @@ $current_page = "rubros";
         </button>
         <div class="user-info">
             <span class="me-2">Admin User</span>
-            <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User">
+            <!-- <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User"> -->
         </div>
     </header>
-    
+
+    <!-- Alertas -->
+    <div id="alertContainer"></div>
+
     <div class="dashboard-content">
+
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4><i class="bi bi-tags me-2"></i>Gestión de Rubros</h4>
             <div>
                 <a href="rubrosIndexController.php" class="btn btn-sm btn-outline-primary me-2">
                     <i class="bi bi-list-ul"></i> Ver Lista
                 </a>
-                <button class="btn btn-sm btn-primary" onclick="resetForm()">
+                <a href="rubrosAltaController.php" class="btn btn-sm btn-primary">
                     <i class="bi bi-plus-circle"></i> Nuevo Rubro
-                </button>
+                </a>
             </div>
         </div>
 
-        <!-- Alertas -->
-        <div id="alertContainer"></div>
-
-        <!-- Formulario de Rubro -->
         <div class="card">
             <div class="card-header bg-white">
-                <h5 class="card-title mb-0">Alta de Rubro</h5>
+                <h5 class="card-title mb-0">Editar Rubro</h5>
             </div>
             <div class="card-body">
-                <form id="rubroForm" novalidate>
-                    
-                    <!-- Datos Básicos del Rubro -->
-                    <div class="form-section">
-                        <h6><i class="bi bi-info-circle me-1"></i>Datos Básicos del Rubro</h6>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="nombreRubro" class="form-label required-label">Nombre del Rubro</label>
-                                <input type="text" class="form-control" id="nombreRubro" 
-                                       placeholder="Ej: Alimentos, Electrónica, Servicios..." required
-                                       maxlength="100">
-                                <div class="invalid-feedback">Por favor ingresa el nombre del rubro (máximo 100 caracteres).</div>
-                            </div>
-                            
-                            <div class="col-md-6 mb-3">
-                                <label for="codigoRubro" class="form-label required-label">Código del Rubro</label>
-                                <input type="text" class="form-control" id="codigoRubro" 
-                                       placeholder="Ej: ALI, ELE, SER..." required
-                                       maxlength="10" style="text-transform: uppercase;">
-                                <div class="invalid-feedback">Por favor ingresa un código único para el rubro (máximo 10 caracteres).</div>
-                            </div>
-                            
-                            <div class="col-md-12 mb-3">
-                                <label for="descripcion" class="form-label">Descripción del Rubro</label>
-                                <textarea class="form-control" id="descripcion" rows="3" 
-                                          placeholder="Descripción detallada del rubro, su alcance y características principales..."
-                                          maxlength="500"></textarea>
-                                <div class="form-text"><span id="descripcionCounter">0</span>/500 caracteres</div>
-                            </div>
-                            
-                        </div>
+                <form id="rubroEditarForm">
+                    <div class="row">
+                        <input type="hidden" class="form-control" id="idRubro" name="idRubro" value="<?= $rubro->id ?>">
                     </div>
 
-                    <!-- Configuración de Visibilidad -->
+                    <div class="mb-3">
+                        <label for="nombreRubro" class="form-label required-label">Nombre del Rubro</label>
+                        <input type="text" class="form-control" id="nombreRubro" name="nombreRubro" value="<?= $rubro->nombre ?>" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="codigoRubro" class="form-label">Código</label>
+                        <input type="text" class="form-control" id="codigoRubro" name="codigoRubro" value="<?= $rubro->codigo ?>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción del Rubro</label>
+                        <input type="text" class="form-control" id="descripcion" rows="3" maxlength="500" value="<?php $rubro->descripcion ?>">
+
+                        <div class="form-text"><span id="descripcionCounter">0</span>/500 caracteres</div>
+                    </div>
+
                     <div class="form-section">
                         <h6><i class="bi bi-eye me-1"></i>Configuración de Visibilidad</h6>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="visible" checked>
+                                    <input type="hidden" name="visible" value="0">
+                                    <input class="form-check-input" type="checkbox" id="visible" value="1" <?= $rubro->visible_publico == 1 ? 'checked' : '' ?>>
                                     <label class="form-check-label fw-bold" for="visible">
                                         Visible al Público
                                     </label>
@@ -173,36 +76,40 @@ $current_page = "rubros";
                                     Si está desactivado, solo será visible en el panel de administración.
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-6 mb-3">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="activo" checked>
+                                    <input type="hidden" name="activo" value="0">
+                                    <input class="form-check-input" type="checkbox" id="activo" value="1" <?= $rubro->activo == 1 ? 'checked' : '' ?>>
                                     <label class="form-check-label fw-bold" for="activo">
                                         Rubro Activo
                                     </label>
                                 </div>
                                 <div class="form-text">
-                                    Los rubros inactivos no podrán ser seleccionados por nuevos comercios, 
+                                    Los rubros inactivos no podrán ser seleccionados por nuevos comercios,
                                     pero los comercios existentes mantendrán su asignación.
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Documentación Requerida -->
                     <div class="form-section">
                         <h6><i class="bi bi-files me-1"></i>Documentación Requerida</h6>
-                        
+
                         <div class="alert alert-info">
-                            <i class="bi bi-info-circle"></i> 
+                            <i class="bi bi-info-circle"></i>
                             <strong>Información importante:</strong> Selecciona los documentos que serán requeridos para los comercios de este rubro.
                         </div>
-                        
+
+
                         <div class="documentacion-grid">
                             <?php foreach ($tiposDocumentacion as $tipo) { ?>
                                 <div class="documentacion-item">
                                     <label class="custom-checkbox w-100">
-                                        <input type="checkbox" name="documentacion[]" value="<?= $tipo->id ?>">
+                                        <input type="checkbox"
+                                            name="documentacion[]"
+                                            value="<?= $tipo->id ?>"
+                                            <?= in_array($tipo->id, $documentacion) ? 'checked' : '' ?>>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <h6 class="mb-1"><?= $tipo->nombre ?></h6>
@@ -214,25 +121,21 @@ $current_page = "rubros";
                                 </div>
                             <?php } ?>
                         </div>
-                    
+
+
                     </div>
 
-                    <!-- Botones de Acción -->
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <div class="d-flex justify-content-end gap-2">
-                                <button type="button" class="btn btn-secondary" onclick="resetForm()">
-                                    <i class="bi bi-arrow-clockwise"></i> Limpiar Formulario
-                                </button>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-check-lg"></i> Guardar Rubro
-                                </button>
-                            </div>
-                        </div>
+                    <div class="footer">
+                        <a href="comercioIndexController.php" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-info">Guardar Cambios</button>
                     </div>
+
                 </form>
             </div>
+
         </div>
+
+
     </div>
 </div>
 
@@ -259,22 +162,21 @@ $current_page = "rubros";
         }
     });
 
-    // Efecto visual para los items de documentación
     document.querySelectorAll('.custom-checkbox input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
             const item = this.closest('.documentacion-item');
             if (this.checked) {
                 item.classList.add('selected');
             } else {
-                item.classList.remove('selected');
+                // item.classList.remove('selected');
             }
         });
     });
 
-    // Validación del formulario
-    document.getElementById('rubroForm').addEventListener('submit', function(e) {
+
+    document.getElementById('rubroEditarForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         // Validar campos básicos
         if (!this.checkValidity()) {
             e.stopPropagation();
@@ -282,10 +184,10 @@ $current_page = "rubros";
             showAlert('Por favor, completa todos los campos obligatorios.', 'warning');
             return;
         }
-        
-        // Simular envío exitoso
+
         const formData = new FormData(this);
         const rubroData = {
+            id: document.getElementById('idRubro').value,
             nombre: document.getElementById('nombreRubro').value,
             codigo: document.getElementById('codigoRubro').value,
             descripcion: document.getElementById('descripcion').value,
@@ -293,14 +195,14 @@ $current_page = "rubros";
             activo: document.getElementById('activo').checked,
             documentacion: []
         };
-        
+
         // Recopilar documentos seleccionados
         const documentosSeleccionados = document.querySelectorAll('input[name="documentacion[]"]:checked');
         documentosSeleccionados.forEach(doc => {
             rubroData.documentacion.push(doc.value);
         });
-        
-        const response = fetch('/final-2025/Controllers/rubrosGuardarController.php', {
+
+        const response = fetch('/final-2025/Controllers/rubrosActualizarController.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -310,16 +212,16 @@ $current_page = "rubros";
         .then(response => {
             return response.json();
         })
-        .then(data =>{
-            if(data.success){
-                showAlert('Rubro cargado correctamente', 'success');
+        .then(data => {
+            if (data.success) {
+                showAlert('Rubro actualizado correctamente', 'success');
                 window.location.href = 'rubrosIndexController.php?success=created';
             } else {
                 showAlert('Ocurrió un error', 'danger')
             }
         })
         .catch(error => {
-            showAlert('Error al procesar la solicitud', error )
+            showAlert('Error al procesar la solicitud', error)
         })
     });
 
@@ -333,7 +235,7 @@ $current_page = "rubros";
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         `;
         alertContainer.appendChild(alert);
-        
+
         setTimeout(() => {
             if (alert.parentNode) {
                 alert.remove();
@@ -343,11 +245,11 @@ $current_page = "rubros";
 
     // Función para resetear el formulario
     function resetForm() {
-        document.getElementById('rubroForm').reset();
-        document.getElementById('rubroForm').classList.remove('was-validated');
+        document.getElementById('rubroEditarForm').reset();
+        document.getElementById('rubroEditarForm').classList.remove('was-validated');
         document.getElementById('descripcionCounter').textContent = '0';
         document.getElementById('alertContainer').innerHTML = '';
-        
+
         // Desmarcar todos los checkboxes de documentación
         document.querySelectorAll('input[name="documentacion[]"]').forEach(checkbox => {
             checkbox.checked = false;
@@ -356,7 +258,7 @@ $current_page = "rubros";
     }
 
     // Validación en tiempo real
-    const inputs = document.querySelectorAll('#rubroForm input, #rubroForm select, #rubroForm textarea');
+    const inputs = document.querySelectorAll('#rubroEditarForm input, #rubroEditarForm select');
     inputs.forEach(input => {
         input.addEventListener('blur', function() {
             if (this.checkValidity()) {
@@ -369,5 +271,3 @@ $current_page = "rubros";
         });
     });
 </script>
-
-<?php include 'footer.php'; ?>

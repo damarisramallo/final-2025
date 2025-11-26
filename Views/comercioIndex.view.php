@@ -240,13 +240,10 @@ $current_page = "comercios";
     }
 
     function mostrarComercio(id) {
-    // Mostrar un loader mientras carga
     $('#verComercioModal .modal-body').html('<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Cargando...</span></div></div>');
     
-    // Mostrar el modal
     $('#verComercioModal').modal('show');
     
-    // Hacer petición AJAX
     $.ajax({
         url: 'comercioVerController.php',
         type: 'GET',

@@ -35,6 +35,18 @@ Class Comercio extends Conexion {
         return $resultado->fetch_object(Comercio::class); 
     }
 
+    public static function cantidadComerciosPorRubro($rubro_id)
+    {
+        $conexion = new Conexion(); 
+        $conexion->conectar();
+        $preparacion = mysqli_prepare($conexion->conexion, "SELECT COUNT(comercios.id) FROM `comercios` INNER JOIN rubros ON comercios.rubro_id = rubros.id WHERE rubros.id = ?");
+        $preparacion->bind_param("i", $rubro_id);
+        $preparacion->execute();
+        $resultado = $preparacion->get_result(); 
+
+        return $resultado->fetch_object(Comercio::class); 
+    }
+
     public function crearComercio()
     {
         $this->conectar();
@@ -68,4 +80,5 @@ Class Comercio extends Conexion {
     {
         return Rubro::obtenerRubroPorId($this->rubro_id);
     }
+
 }
