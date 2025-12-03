@@ -23,6 +23,19 @@ Class Comercio extends Conexion {
         return $comercios;
     }
 
+    public static function cantidadDeComercios()
+    {
+        $conexion = new Conexion();
+        $conexion->conectar();
+        $preparacion = mysqli_prepare($conexion->conexion, "SELECT COUNT(*) as total_comercios FROM `comercios`");
+        $preparacion->execute();
+        $resultado = $preparacion->get_result();
+
+        $cantComercios = $resultado->fetch_assoc();
+
+        return $cantComercios['total_comercios'];
+    }
+
     public static function obtenerPorId($id)
     {
         $conexion = new Conexion(); 
@@ -63,7 +76,7 @@ Class Comercio extends Conexion {
         $preparacion->execute();
     }
 
-        public function eliminar()
+    public function eliminar()
     {
         $this->conectar();
         $preparacion = mysqli_prepare($this->conexion, "DELETE FROM comercios WHERE id = ?");

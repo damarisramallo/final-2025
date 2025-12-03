@@ -94,6 +94,23 @@ class Rubro extends Conexion
         return $documentacion;
     }
 
+    public static function todosDocumentosDelRubro($id)
+    {
+        $conexion = new Conexion();
+        $conexion->conectar();
+        $preparacion = mysqli_prepare($conexion->conexion, "SELECT * FROM `rubro_documentacion` INNER JOIN tipos_documentacion ON rubro_documentacion.tipo_documento_id = tipos_documentacion.id WHERE rubro_id = ?");
+        $preparacion->bind_param("i", $id);
+        $preparacion->execute();
+        $resultado = $preparacion->get_result();
+
+        $documentacion = array();
+        while ($fila = $resultado->fetch_object(Rubro::class)) {
+            array_push($documentacion, $fila);
+        }
+
+        return $documentacion;
+    }
+
     public function actualizarRubro($id, $nombre, $codigo, $descripcion, $visible_publico, $activo, $documentacion)
     {
         try {
@@ -128,7 +145,7 @@ class Rubro extends Conexion
 
             $this->conexion->commit();
             return $id;
-            
+
         } catch (Exception $e) {
             $this->conexion->rollback();
             throw $e;
@@ -136,9 +153,57 @@ class Rubro extends Conexion
     }
 
 
-    // SELECT COUNT(comercios.id) FROM `comercios` INNER JOIN rubros ON comercios.rubro_id = rubros.id WHERE rubros.id = 1
-    // public function comercio()
-    // {
-    //     return Comercio::obtenerPorId($this->);
-    // }
+    public static function cantidadComerciosPorRubro($id)
+    {
+        $conexion = new Conexion();
+        $conexion->conectar();
+        $preparacion = mysqli_prepare($conexion->conexion, "SELECT COUNT(comercios.id)  AS total FROM `comercios` INNER JOIN rubros ON comercios.rubro_id = rubros.id WHERE rubros.id = ?");
+        $preparacion->bind_param("i", $id);
+        $preparacion->execute();
+        $resultado = $preparacion->get_result();
+
+        $fila = $resultado->fetch_assoc();
+
+        return $fila['total'] ?? 0;
+    }
+
+    public static function cantidadDeRubros()
+    {
+        $conexion = new Conexion();
+        $conexion->conectar();
+        $preparacion = mysqli_prepare($conexion->conexion, "SELECT COUNT(*) as total_rubros FROM `rubros`");
+        $preparacion->execute();
+        $resultado = $preparacion->get_result();
+
+        $cantRubros = $resultado->fetch_assoc();
+
+        return $cantRubros['total_rubros'];
+    }
+
+    public static function cantidadDeRubrosActivos()
+    {
+        $conexion = new Conexion();
+        $conexion->conectar();
+        $preparacion = mysqli_prepare($conexion->conexion, "SELECT COUNT(*) as activos FROM `rubros` WHERE activo = 1");
+        $preparacion->execute();
+        $resultado = $preparacion->get_result();
+
+        $cantRubros = $resultado->fetch_assoc();
+
+        return $cantRubros['activos'];
+    }
+
+    public static function cantidadDeRubrosInactivos()
+    {
+        $conexion = new Conexion();
+        $conexion->conectar();
+        $preparacion = mysqli_prepare($conexion->conexion, "SELECT COUNT(*) as inactivos FROM `rubros` WHERE activo = 0");
+        $preparacion->execute();
+        $resultado = $preparacion->get_result();
+
+        $cantRubros = $resultado->fetch_assoc();
+
+        return $cantRubros['inactivos'];
+    }
+
 }

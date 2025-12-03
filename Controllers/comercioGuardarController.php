@@ -1,56 +1,39 @@
 <?php
 
 header('Content-Type: application/json');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
 
+require_once __DIR__ . '/../Models/Comercio.php';
+
+$comercio = new Comercio();
+$comercio->conectar();
 
 try {
-    require_once __DIR__ . '/../Config/Conexion.php';
-    require_once __DIR__ . '/../Models/Comercio.php';
-
-
-    $id_titular = $_POST['razonSocialId'] ?? '';
-    $nombre = $_POST['nombreComercio'] ?? '';
-    $nombre_fantasia = $_POST['nombreFantasia'] ?? '';
-    $rubro_id = $_POST['rubroId'] ?? ''; 
-    $subrubro = $_POST['subrubro'] ?? '';
-    $telefono = $_POST['telefonoComercio'] ?? '';
-    $email = $_POST['emailComercio'] ?? '';
-    $sitio_web = $_POST['sitioWeb'] ?? '';
-    $direccion = $_POST['direccion'] ?? '';
-    $localidad = $_POST['localidadComercio'] ?? '';
-    $provincia = $_POST['provinciaComercio'] ?? '';
-    $codigo_postal = $_POST['codigoPostalComercio'] ?? '';
-    $barrio = $_POST['barrio'] ?? '';
-    $estado = $_POST['estadoComercio'] ?? '';
-
-    $comercio = new Comercio();
-    $comercio->titular_id = $id_titular;
-    $comercio->nombre = $nombre;
-    $comercio->nombre_fantasia = $nombre_fantasia;
-    $comercio->rubro_id = $rubro_id;
-    $comercio->subrubro = $subrubro;
-    $comercio->telefono = $telefono;
-    $comercio->email_contacto = $email;
-    $comercio->sitio_web = $sitio_web;
-    $comercio->direccion = $direccion;
-    $comercio->localidad = $localidad;
-    $comercio->provincia = $provincia;
-    $comercio->localidad = $localidad;
-    $comercio->codigo_postal = $codigo_postal;
-    $comercio->barrio = $barrio;
-    $comercio->observaciones = $observaciones;
+    $comercio->titular_id = $_POST['razonSocialId'];
+    $comercio->nombre = $_POST['nombreComercio'];
+    $comercio->nombre_fantasia = $_POST['nombreFantasia'];
+    $comercio->rubro_id = $_POST['rubroId'];
+    $comercio->subrubro = $_POST['subrubro'];
+    $comercio->telefono = $_POST['telefonoComercio'];
+    $comercio->email_contacto = $_POST['emailComercio'];
+    $comercio->sitio_web = $_POST['sitioWeb'];
+    $comercio->direccion = $_POST['direccion'];
+    $comercio->localidad = $_POST['localidadComercio'];
+    $comercio->provincia = $_POST['provinciaComercio'];
+    $comercio->codigo_postal = $_POST['codigoPostalComercio'];
+    $comercio->barrio = $_POST['barrio'];
+    $comercio->estado = $_POST['estadoComercio'];
 
     $resultado = $comercio->crearComercio();
 
-
     echo json_encode([
         'success' => true,
-        'message' => 'Comercio guardado correctamente'
+        'mensaje' => 'Comercio guardado correctamente'
     ]);
-
 } catch (Exception $e) {
     echo json_encode([
         'success' => false,
-        'message' => $e->getMessage()
+        'mensaje' => 'Error: ' . $e->getMessage()
     ]);
 }

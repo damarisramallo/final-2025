@@ -41,12 +41,6 @@ $comercio->sitio_web = $sitio_web;
 $comercio->email_contacto = $email;
 $comercio->estado = $estado;
 
-
-
-
-
-
-
 $comercio->actualizar();
 
 header("Location: ".$_SERVER['HTTP_REFERER']);

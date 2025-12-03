@@ -75,12 +75,7 @@ $current_page = "comercios";
                                 </select>
                                 <div class="invalid-feedback">Por favor selecciona una razón social.</div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Información de la Razón Social</label>
-                                <div id="razonSocialInfo" class="p-2 bg-light rounded">
-                                    <small class="text-muted">Selecciona una razón social para ver su información</small>
-                                </div>
-                            </div>
+                        
                         </div>
                     </div>
 
@@ -199,8 +194,8 @@ $current_page = "comercios";
                                 <select class="form-select" id="estadoComercio" name="estadoComercio" required>
                                     <option value="activo" selected>Activo</option>
                                     <option value="inactivo">Inactivo</option>
-                                    <option value="suspendido">Suspendido</option>
-                                    <option value="en_construccion">En Construcción</option>
+                                    <option value="en construccion">En Construcción</option>
+                                    <option value="pendiente">pendiente</option>
                                 </select>
                             </div>
                             
@@ -228,33 +223,24 @@ $current_page = "comercios";
 </div>
 
 <script>
-    // Información de razones sociales (simulada)
-    const razonesSocialesInfo = {
-        1: { cuit: "30-12345678-9", condicionIva: "Responsable Inscripto", estado: "Activo" },
-        2: { cuit: "27-87654321-0", condicionIva: "Monotributista", estado: "Activo" },
-        3: { cuit: "20-11223344-5", condicionIva: "Responsable Inscripto", estado: "Inactivo" },
-        4: { cuit: "23-44332211-6", condicionIva: "Monotributista", estado: "Activo" },
-        5: { cuit: "30-55667788-1", condicionIva: "Responsable Inscripto", estado: "Suspendido" }
-    };
-
     // Mostrar información de la razón social seleccionada
-    document.getElementById('razonSocialId').addEventListener('change', function() {
-        const razonSocialInfo = document.getElementById('razonSocialInfo');
-        const selectedId = this.value;
+    // document.getElementById('razonSocialId').addEventListener('change', function() {
+    //     const razonSocialInfo = document.getElementById('razonSocialInfo');
+    //     const selectedId = this.value;
         
-        if (selectedId && razonesSocialesInfo[selectedId]) {
-            const info = razonesSocialesInfo[selectedId];
-            razonSocialInfo.innerHTML = `
-                <div class="small">
-                    <strong>CUIT:</strong> ${info.cuit}<br>
-                    <strong>Condición IVA:</strong> ${info.condicionIva}<br>
-                    <strong>Estado:</strong> <span class="badge ${info.estado === 'Activo' ? 'bg-success' : 'bg-warning'}">${info.estado}</span>
-                </div>
-            `;
-        } else {
-            razonSocialInfo.innerHTML = '<small class="text-muted">Selecciona una razón social para ver su información</small>';
-        }
-    });
+    //     if (selectedId && razonesSocialesInfo[selectedId]) {
+    //         const info = razonesSocialesInfo[selectedId];
+    //         razonSocialInfo.innerHTML = `
+    //             <div class="small">
+    //                 <strong>CUIT:</strong> ${info.cuit}<br>
+    //                 <strong>Condición IVA:</strong> ${info.condicionIva}<br>
+    //                 <strong>Estado:</strong> <span class="badge ${info.estado === 'Activo' ? 'bg-success' : 'bg-warning'}">${info.estado}</span>
+    //             </div>
+    //         `;
+    //     } else {
+    //         razonSocialInfo.innerHTML = '<small class="text-muted">Selecciona una razón social para ver su información</small>';
+    //     }
+    // });
 
     // Validación del formulario
     document.getElementById('comercioForm').addEventListener('submit', function(e) {
@@ -272,32 +258,17 @@ $current_page = "comercios";
             method: 'POST',
             body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                return response.json();
+            })
             .then(data => {
-                if (data.success) {
-                    showAlert('Comercio guardado correctamente.', 'success');
-                    resetForm();
-                } else {
-                    showAlert('Error al guardar: ' + data.message, 'danger');
-                }
+            if (data.success) {
+                showAlert('Comercio guardado correctamente.', 'success');
+                window.location.href = 'comercioIndexController.php?success=created';
+            } else {
+                showAlert('Error al guardar: ', 'warning');
+            }
         });
-        
-        // // Simular envío exitoso
-        // const formData = new FormData(this);
-        // const comercioData = {
-        //     razonSocialId: document.getElementById('razonSocialId').value,
-        //     nombreComercio: document.getElementById('nombreComercio').value,
-        //     // ... otros campos
-        // };
-        
-        // console.log('Datos del comercio:', comercioData);
-        // showAlert('Comercio guardado correctamente.', 'success');
-        // this.classList.remove('was-validated');
-        
-        // Redirigir a la lista después de 2 segundos
-        setTimeout(() => {
-            window.location.href = 'comercioIndexController.php?success=created';
-        }, 2000);
     });
 
     // Función para mostrar alertas

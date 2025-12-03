@@ -14,7 +14,7 @@ $current_page = "comercios";
     .badge-activo { background-color: #28a745; }
     .badge-pendiente { background-color: #6c757d; }
     .badge-inactivo { background-color: #ffc107; color: #212529; }
-    .badge-en_construccion { background-color: #17a2b8; }
+    .badge-en-construccion { background-color: #17a2b8; }
     .table-responsive { border-radius: 8px; overflow: hidden; }
 </style>
 <!-- Arreglar el estado -->
@@ -88,7 +88,6 @@ $current_page = "comercios";
                                     </td>
                                     <td>
                                         <div class="small"><?php echo htmlspecialchars($comercio->titular()->nombre); ?></div>
-                                        <small class="text-muted">ID: <?php echo $comercio->titular_id; ?></small>
                                     </td>
                                     <td><?php echo $comercio->rubro()->nombre; ?></td>
                                     <td>
@@ -240,40 +239,40 @@ $current_page = "comercios";
     }
 
     function mostrarComercio(id) {
-    $('#verComercioModal .modal-body').html('<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Cargando...</span></div></div>');
-    
-    $('#verComercioModal').modal('show');
-    
-    $.ajax({
-        url: 'comercioVerController.php',
-        type: 'GET',
-        data: { id: id },
-        dataType: 'json',
-        success: function(comercio) {
-            $('#verComercioModal .modal-body').html(`
-                <div class="card-body">
-                    <h5 class="card-title">${comercio.nombre}</h5>
-                    <hr>
-                    <p class="card-text"><strong>Razón Social: </strong>${comercio.razon_social}</p>
-                    <p class="card-text"><strong>Nombre: </strong>${comercio.nombre}</p>
-                    <p class="card-text"><strong>Nombre Fantasía: </strong>${comercio.nombre_fantasia}</p>
-                    <p class="card-text"><strong>Rubro: </strong>${comercio.rubro}</p>
-                    <p class="card-text"><strong>Subrubro: </strong>${comercio.subrubro}</p>
-                    <p class="card-text"><strong>Teléfono: </strong>${comercio.telefono}</p>
-                    <p class="card-text"><strong>Email: </strong>${comercio.email_contacto}</p>
-                    <p class="card-text"><strong>Sitio Web: </strong>${comercio.sitio_web}</p>
-                    <p class="card-text"><strong>Dirección: </strong>${comercio.direccion}</p>
-                    <p class="card-text"><strong>Localidad: </strong>${comercio.localidad}</p>
-                    <p class="card-text"><strong>Código Postal: </strong>${comercio.codigo_postal}</p>
-                    <p class="card-text"><strong>Provincia: </strong>${comercio.provincia}</p>
-                    <p class="card-text"><strong>Zona/Barrio: </strong>${comercio.barrio}</p>
-                    <p class="card-text"><strong>Estado: </strong>${comercio.estado}</p>
-                </div>
-            `);
-        },
-        error: function() {
-            $('#verComercioModal .modal-body').html('<div class="alert alert-danger">Error al cargar los datos del comercio</div>');
-        }
+        $('#verComercioModal .modal-body').html('<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Cargando...</span></div></div>');
+        
+        $('#verComercioModal').modal('show');
+        
+        $.ajax({
+            url: 'comercioVerController.php',
+            type: 'GET',
+            data: { id: id },
+            dataType: 'json',
+            success: function(comercio) {
+                $('#verComercioModal .modal-body').html(`
+                    <div class="card-body">
+                        <h5 class="card-title">${comercio.nombre}</h5>
+                        <hr>
+                        <p class="card-text"><strong>Razón Social: </strong>${comercio.razon_social}</p>
+                        <p class="card-text"><strong>Nombre: </strong>${comercio.nombre}</p>
+                        <p class="card-text"><strong>Nombre Fantasía: </strong>${comercio.nombre_fantasia}</p>
+                        <p class="card-text"><strong>Rubro: </strong>${comercio.rubro}</p>
+                        <p class="card-text"><strong>Subrubro: </strong>${comercio.subrubro}</p>
+                        <p class="card-text"><strong>Teléfono: </strong>${comercio.telefono}</p>
+                        <p class="card-text"><strong>Email: </strong>${comercio.email_contacto}</p>
+                        <p class="card-text"><strong>Sitio Web: </strong>${comercio.sitio_web}</p>
+                        <p class="card-text"><strong>Dirección: </strong>${comercio.direccion}</p>
+                        <p class="card-text"><strong>Localidad: </strong>${comercio.localidad}</p>
+                        <p class="card-text"><strong>Código Postal: </strong>${comercio.codigo_postal}</p>
+                        <p class="card-text"><strong>Provincia: </strong>${comercio.provincia}</p>
+                        <p class="card-text"><strong>Zona/Barrio: </strong>${comercio.barrio}</p>
+                        <p class="card-text"><strong>Estado: </strong>${comercio.estado}</p>
+                    </div>
+                `);
+            },
+            error: function() {
+                $('#verComercioModal .modal-body').html('<div class="alert alert-danger">Error al cargar los datos del comercio</div>');
+            }
     });
 }
 

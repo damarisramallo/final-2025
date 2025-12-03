@@ -300,7 +300,7 @@ $current_page = "rubros";
             rubroData.documentacion.push(doc.value);
         });
         
-        const response = fetch('/final-2025/Controllers/rubrosGuardarController.php', {
+        const response = fetch('../Controllers/rubrosDarAltaController.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -22,6 +22,14 @@ Class Titular extends Conexion {
         return $razonesSociales;
     }
 
+    public function actualizar()
+    {
+        $this->conectar();
+        $preparacion = mysqli_prepare($this->conexion, "UPDATE titulares SET tipo = ?, nombre = ?, email = ?, telefono = ?, fecha_inicio = ?, cuit = ?, celular = ?, web = ?, calle = ?, numero = ?, piso = ?, localidad = ?, provincia = ?, cod_postal = ?, observaciones = ?, estado = ?, condicion_iva = ?  WHERE id = ?");
+        $preparacion->bind_param("sssssssssssssssssi",$this->tipo, $this->nombre, $this->email, $this->telefono, $this->fecha_inicio, $this->cuit, $this->celular, $this->web, $this->calle, $this->numero, $this->piso, $this->localidad, $this->provincia, $this->cod_postal, $this->observaciones, $this->estado, $this->condicion_iva, $this->id); 
+        $preparacion->execute();
+    }
+
     public function crearRazonSocial()
     {
         $this->conectar();
@@ -60,5 +68,18 @@ Class Titular extends Conexion {
         $resultado = $preparacion->get_result(); 
 
         return $resultado->fetch_object(Titular::class); 
+    }
+
+    public static function cantidadDeRazones()
+    {
+        $conexion = new Conexion();
+        $conexion->conectar();
+        $preparacion = mysqli_prepare($conexion->conexion, "SELECT COUNT(*) as total_razones FROM `titulares`");
+        $preparacion->execute();
+        $resultado = $preparacion->get_result();
+
+        $cantRazones = $resultado->fetch_assoc();
+
+        return $cantRazones['total_razones'];
     }
 }

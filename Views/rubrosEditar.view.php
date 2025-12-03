@@ -55,7 +55,7 @@ $current_page = "razon_social";
 
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">Descripción del Rubro</label>
-                        <input type="text" class="form-control" id="descripcion" rows="3" maxlength="500" value="<?php $rubro->descripcion ?>">
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" value="<?= $rubro->descripcion ?>">
 
                         <div class="form-text"><span id="descripcionCounter">0</span>/500 caracteres</div>
                     </div>
@@ -125,9 +125,17 @@ $current_page = "razon_social";
 
                     </div>
 
-                    <div class="footer">
-                        <a href="comercioIndexController.php" class="btn btn-secondary">Cancelar</a>
-                        <button type="submit" class="btn btn-info">Guardar Cambios</button>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                                    <i class="bi bi-arrow-clockwise"></i> Limpiar Formulario
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-lg"></i> Guardar Rubro
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                 </form>
@@ -168,7 +176,7 @@ $current_page = "razon_social";
             if (this.checked) {
                 item.classList.add('selected');
             } else {
-                // item.classList.remove('selected');
+                item.classList.remove('selected');
             }
         });
     });
@@ -214,8 +222,8 @@ $current_page = "razon_social";
         })
         .then(data => {
             if (data.success) {
-                showAlert('Rubro actualizado correctamente', 'success');
-                window.location.href = 'rubrosIndexController.php?success=created';
+                showAlert('Rubro actualizado correctamente', 'updated');
+                window.location.href = 'rubrosIndexController.php?success=updated';
             } else {
                 showAlert('Ocurrió un error', 'danger')
             }
